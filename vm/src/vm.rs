@@ -1840,8 +1840,8 @@ fn type_assert(
     match val.as_non_nil_interface() {
         Ok(iface) => match &iface as &InterfaceObj {
             InterfaceObj::Gos(v, b) => {
-                let meta = b.as_ref().unwrap().0;
                 let want_meta = want_meta.as_metadata();
+                let meta = b.as_ref().or(Some(&(want_meta.clone(), vec![]))).unwrap().0;
                 if want_meta.identical(&meta, metas) {
                     Ok((v.copy_semantic(gcc), true))
                 } else {
