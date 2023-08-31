@@ -1842,9 +1842,8 @@ fn type_assert(
             InterfaceObj::Gos(v, b) => {
                 let want_meta = want_meta.as_metadata();
                 if b.is_none() {
-                    return Ok((v.copy_semantic(gcc), true))
+                    return Ok((want_meta.zero(metas, gcc), false));
                 }
-                
                 let meta = b.as_ref().unwrap().0;
                 if want_meta.identical(&meta, metas) {
                     Ok((v.copy_semantic(gcc), true))
